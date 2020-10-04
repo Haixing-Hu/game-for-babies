@@ -1,0 +1,137 @@
+/*******************************************************************************
+ *
+ *    Copyright (c) 2020 Haixing Hu
+ *    All rights reserved.
+ *
+ ******************************************************************************/
+
+const KEYCODE_MAP = {
+  0: '\\',
+  8: 'BACKSPACE',
+  9: 'TAB',
+  12: 'NUM',
+  13: 'ENTER',
+  16: 'SHIFT',
+  17: 'CTRL',
+  18: 'ALT',
+  19: 'PAUSE',
+  20: 'CAPS',
+  27: 'ESC',
+  32: 'SPACE',
+  33: 'PAGEUP',
+  34: 'PAGEDOWN',
+  35: 'END',
+  36: 'HOME',
+  37: 'LEFT',
+  38: 'UP',
+  39: 'RIGHT',
+  40: 'DOWN',
+  44: 'PRINT',
+  45: 'INSERT',
+  46: 'DELETE',
+  48: '0',
+  49: '1',
+  50: '2',
+  51: '3',
+  52: '4',
+  53: '5',
+  54: '6',
+  55: '7',
+  56: '8',
+  57: '9',
+  65: 'A',
+  66: 'B',
+  67: 'C',
+  68: 'D',
+  69: 'E',
+  70: 'F',
+  71: 'G',
+  72: 'H',
+  73: 'I',
+  74: 'J',
+  75: 'K',
+  76: 'L',
+  77: 'M',
+  78: 'N',
+  79: 'O',
+  80: 'P',
+  81: 'Q',
+  82: 'R',
+  83: 'S',
+  84: 'T',
+  85: 'U',
+  86: 'V',
+  87: 'W',
+  88: 'X',
+  89: 'Y',
+  90: 'Z',
+  91: 'CMD',
+  92: 'CMD',
+  93: 'CMD',
+  96: 'NUM_0',
+  97: 'NUM_1',
+  98: 'NUM_2',
+  99: 'NUM_3',
+  100: 'NUM_4',
+  101: 'NUM_5',
+  102: 'NUM_6',
+  103: 'NUM_7',
+  104: 'NUM_8',
+  105: 'NUM_9',
+  106: 'NUM_MULTIPLY',
+  107: 'NUM_ADD',
+  108: 'NUM_ENTER',
+  109: 'NUM_SUBTRACT',
+  110: 'NUM_DECIMAL',
+  111: 'NUM_DIVIDE',
+  112: 'F1',
+  113: 'F2',
+  114: 'F3',
+  115: 'F4',
+  116: 'F5',
+  117: 'F6',
+  118: 'F7',
+  119: 'F8',
+  120: 'F9',
+  121: 'F10',
+  122: 'F11',
+  123: 'F12',
+  124: 'PRINT',
+  144: 'NUM',
+  145: 'SCROLL',
+  186: ';',
+  187: '=',
+  188: ',',
+  189: '-',
+  190: '.',
+  191: '/',
+  192: '`',
+  219: '[',
+  220: '\\',
+  221: ']',
+  222: '\'',
+  223: '`',
+  224: 'CMD',
+  225: 'ALT',
+  57392: 'CTRL',
+  63289: 'NUM',
+  59: ';',
+  61: '=',
+  173: '-'
+};
+
+/**
+ * Converts key code to character.
+ * 
+ * @param {in} keyCode 
+ *     the key code to be converted.
+ * @return the corresponding character.
+ */
+export default function(keyCode) {
+  const result = KEYCODE_MAP[keyCode];
+  if (result === undefined) {
+    return '?';
+  } else {
+    return result;
+  }
+}
