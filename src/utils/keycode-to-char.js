@@ -122,12 +122,12 @@ const KEYCODE_MAP = {
 
 /**
  * Converts key code to character.
- * 
- * @param {in} keyCode 
+ *
+ * @param {in} keyCode
  *     the key code to be converted.
  * @return the corresponding character.
  */
-export default function(keyCode) {
+export default function (keyCode) {
   const result = KEYCODE_MAP[keyCode];
   if (result === undefined) {
     return '?';

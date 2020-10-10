@@ -1,72 +1,16 @@
 export default function emojiCursor(options) {
-  let possibleEmoji = (options && options.emoji) || ['😀', '😂', '😆', '😊'];
-  let hasWrapperEl = options && options.element;
-  let element = hasWrapperEl || document.body;
+  const possibleEmoji = (options && options.emoji) || ['😀', '😂', '😆', '😊'];
+  const size = (options && options.size) || '21px';
+  const hasWrapperEl = options && options.element;
+  const element = hasWrapperEl || document.body;
 
   let width = window.innerWidth;
   let height = window.innerHeight;
-  let cursor = { x: width / 2, y: width / 2 };
-  let particles = [];
-  let canvas, context;
-  let canvImages = [];
-
-  function init() {
-    canvas = document.createElement('canvas');
-    context = canvas.getContext('2d');
-
-    canvas.style.top = '0px';
-    canvas.style.left = '0px';
-    canvas.style.pointerEvents = 'none';
-
-    if (hasWrapperEl) {
-      canvas.style.position = 'absolute';
-      element.appendChild(canvas);
-      canvas.width = element.clientWidth;
-      canvas.height = element.clientHeight;
-    } else {
-      canvas.style.position = 'fixed';
-      document.body.appendChild(canvas);
-      canvas.width = width;
-      canvas.height = height;
-    }
-
-    context.font = '21px serif';
-    context.textBaseline = 'middle';
-    context.textAlign = 'center';
-
-    possibleEmoji.forEach((emoji) => {
-      let measurements = context.measureText(emoji);
-      let bgCanvas = document.createElement('canvas');
-      let bgContext = bgCanvas.getContext('2d');
-
-      bgCanvas.width = measurements.width;
-      bgCanvas.height =
-        measurements.actualBoundingBoxAscent +
-        measurements.actualBoundingBoxDescent;
-
-      bgContext.textAlign = 'center';
-      bgContext.font = '21px serif';
-      bgContext.textBaseline = 'middle';
-      bgContext.fillText(
-        emoji,
-        bgCanvas.width / 2,
-        measurements.actualBoundingBoxAscent
-      );
-
-      canvImages.push(bgCanvas);
-    });
-
-    bindEvents();
-    loop();
-  }
-
-  // Bind events that are needed
-  function bindEvents() {
-    element.addEventListener('mousemove', onMouseMove);
-    element.addEventListener('touchmove', onTouchMove);
-    element.addEventListener('touchstart', onTouchMove);
-    window.addEventListener('resize', onWindowResize);
-  }
+  const cursor = { x: width / 2, y: width / 2 };
+  const particles = [];
+  let canvas; let
+    context;
+  const canvImages = [];
 
   function onWindowResize() {
     width = window.innerWidth;
@@ -130,11 +74,6 @@ export default function emojiCursor(options) {
     }
   }
 
-  function loop() {
-    updateParticles();
-    requestAnimationFrame(loop);
-  }
-
   /**
    * Particles
    */
@@ -142,12 +81,12 @@ export default function emojiCursor(options) {
   function Particle(x, y, canvasItem) {
     const lifeSpan = Math.floor(Math.random() * 60 + 80);
     this.initialLifeSpan = lifeSpan; //
-    this.lifeSpan = lifeSpan; //ms
+    this.lifeSpan = lifeSpan; // ms
     this.velocity = {
       x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
       y: Math.random() * 0.4 + 0.8,
     };
-    this.position = { x: x, y: y };
+    this.position = { x, y };
     this.canv = canvasItem;
 
     this.update = function (context) {
@@ -167,6 +106,68 @@ export default function emojiCursor(options) {
         this.canv.height * scale
       );
     };
+  }
+
+  // Bind events that are needed
+  function bindEvents() {
+    element.addEventListener('mousemove', onMouseMove);
+    element.addEventListener('touchmove', onTouchMove);
+    element.addEventListener('touchstart', onTouchMove);
+    window.addEventListener('resize', onWindowResize);
+  }
+
+  function loop() {
+    updateParticles();
+    requestAnimationFrame(loop);
+  }
+
+  function init() {
+    canvas = document.createElement('canvas');
+    context = canvas.getContext('2d');
+
+    canvas.style.top = '0px';
+    canvas.style.left = '0px';
+    canvas.style.pointerEvents = 'none';
+
+    if (hasWrapperEl) {
+      canvas.style.position = 'absolute';
+      element.appendChild(canvas);
+      canvas.width = element.clientWidth;
+      canvas.height = element.clientHeight;
+    } else {
+      canvas.style.position = 'fixed';
+      document.body.appendChild(canvas);
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    context.font = `${size} serif`;
+    context.textBaseline = 'middle';
+    context.textAlign = 'center';
+
+    possibleEmoji.forEach((emoji) => {
+      const measurements = context.measureText(emoji);
+      const bgCanvas = document.createElement('canvas');
+      const bgContext = bgCanvas.getContext('2d');
+
+      bgCanvas.width = measurements.width;
+      bgCanvas.height = measurements.actualBoundingBoxAscent
+        + measurements.actualBoundingBoxDescent;
+
+      bgContext.textAlign = 'center';
+      bgContext.font = `${size} serif`;
+      bgContext.textBaseline = 'middle';
+      bgContext.fillText(
+        emoji,
+        bgCanvas.width / 2,
+        measurements.actualBoundingBoxAscent
+      );
+
+      canvImages.push(bgCanvas);
+    });
+
+    bindEvents();
+    loop();
   }
 
   init();

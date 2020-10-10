@@ -7,12 +7,12 @@
 import toString from '@/utils/to-string';
 
 /**
- * Format a string with arguments. The string can have placeholders in the form 
- * of '{0}', '{1}', ... 
- * 
- * @param {in} str 
+ * Format a string with arguments. The string can have placeholders in the form
+ * of '{0}', '{1}', ...
+ *
+ * @param {in} str
  *     the string to be formated, which could contain placeholders.
- * @param {in} args 
+ * @param {in} args
  *     the arguments used to format the string.
  * @return the formatted result.
  * @author Haixing Hu

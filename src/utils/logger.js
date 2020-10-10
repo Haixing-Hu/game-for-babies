@@ -31,7 +31,7 @@ const DEFAULT_LOG_LEVEL = (DEBUG ? 'DEBUG' : 'INFO');
 
 /**
  * Initialize the vConsole in the debugging mode.
- * 
+ *
  * @author Haixing Hu
  */
 const vconsole = (DEBUG ? new VConsole() : null);

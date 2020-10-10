@@ -1,79 +1,21 @@
 export default function fairyDustCursor(options) {
-  let possibleColors = (options && options.colors) || [
+  const possibleColors = (options && options.colors) || [
     '#D61C59',
     '#E7D84B',
     '#1B8798',
   ];
-  let hasWrapperEl = options && options.element;
-  let element = hasWrapperEl || document.body;
+  const hasWrapperEl = options && options.element;
+  const element = hasWrapperEl || document.body;
 
   let width = window.innerWidth;
   let height = window.innerHeight;
-  let cursor = { x: width / 2, y: width / 2 };
-  let particles = [];
-  let canvas, context;
+  const cursor = { x: width / 2, y: width / 2 };
+  const particles = [];
+  let canvas; let
+    context;
 
-  let canvImages = [];
+  const canvImages = [];
   const char = '*';
-
-  function init() {
-    
-    canvas = document.createElement('canvas');
-    context = canvas.getContext('2d');
-    canvas.style.top = '0px';
-    canvas.style.left = '0px';
-    canvas.style.pointerEvents = 'none';
-
-    if (hasWrapperEl) {
-      canvas.style.position = 'absolute';
-      element.appendChild(canvas);
-      canvas.width = element.clientWidth;
-      canvas.height = element.clientHeight;
-    } else {
-      canvas.style.position = 'fixed';
-      element.appendChild(canvas);
-      canvas.width = width;
-      canvas.height = height;
-    }
-
-    context.font = '21px serif';
-    context.textBaseline = 'middle';
-    context.textAlign = 'center';
-
-    possibleColors.forEach((color) => {
-      let measurements = context.measureText(char);
-      let bgCanvas = document.createElement('canvas');
-      let bgContext = bgCanvas.getContext('2d');
-
-      bgCanvas.width = measurements.width;
-      bgCanvas.height =
-        measurements.actualBoundingBoxAscent +
-        measurements.actualBoundingBoxDescent;
-
-      bgContext.fillStyle = color;
-      bgContext.textAlign = 'center';
-      bgContext.font = '21px serif';
-      bgContext.textBaseline = 'middle';
-      bgContext.fillText(
-        char,
-        bgCanvas.width / 2,
-        measurements.actualBoundingBoxAscent
-      );
-
-      canvImages.push(bgCanvas);
-    });
-
-    bindEvents();
-    loop();
-  }
-
-  // Bind events that are needed
-  function bindEvents() {
-    element.addEventListener('mousemove', onMouseMove);
-    element.addEventListener('touchmove', onTouchMove);
-    element.addEventListener('touchstart', onTouchMove);
-    window.addEventListener('resize', onWindowResize);
-  }
 
   function onWindowResize() {
     width = window.innerWidth;
@@ -137,20 +79,15 @@ export default function fairyDustCursor(options) {
     }
   }
 
-  function loop() {
-    updateParticles();
-    requestAnimationFrame(loop);
-  }
-
   function Particle(x, y, canvasItem) {
     const lifeSpan = Math.floor(Math.random() * 30 + 60);
     this.initialLifeSpan = lifeSpan; //
-    this.lifeSpan = lifeSpan; //ms
+    this.lifeSpan = lifeSpan; // ms
     this.velocity = {
       x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
       y: Math.random() * 0.7 + 0.9,
     };
-    this.position = { x: x, y: y };
+    this.position = { x, y };
     this.canv = canvasItem;
 
     this.update = function (context) {
@@ -170,6 +107,68 @@ export default function fairyDustCursor(options) {
         this.canv.height * scale
       );
     };
+  }
+
+  // Bind events that are needed
+  function bindEvents() {
+    element.addEventListener('mousemove', onMouseMove);
+    element.addEventListener('touchmove', onTouchMove);
+    element.addEventListener('touchstart', onTouchMove);
+    window.addEventListener('resize', onWindowResize);
+  }
+
+  function loop() {
+    updateParticles();
+    requestAnimationFrame(loop);
+  }
+
+  function init() {
+    canvas = document.createElement('canvas');
+    context = canvas.getContext('2d');
+    canvas.style.top = '0px';
+    canvas.style.left = '0px';
+    canvas.style.pointerEvents = 'none';
+
+    if (hasWrapperEl) {
+      canvas.style.position = 'absolute';
+      element.appendChild(canvas);
+      canvas.width = element.clientWidth;
+      canvas.height = element.clientHeight;
+    } else {
+      canvas.style.position = 'fixed';
+      element.appendChild(canvas);
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    context.font = '21px serif';
+    context.textBaseline = 'middle';
+    context.textAlign = 'center';
+
+    possibleColors.forEach((color) => {
+      const measurements = context.measureText(char);
+      const bgCanvas = document.createElement('canvas');
+      const bgContext = bgCanvas.getContext('2d');
+
+      bgCanvas.width = measurements.width;
+      bgCanvas.height = measurements.actualBoundingBoxAscent
+        + measurements.actualBoundingBoxDescent;
+
+      bgContext.fillStyle = color;
+      bgContext.textAlign = 'center';
+      bgContext.font = '21px serif';
+      bgContext.textBaseline = 'middle';
+      bgContext.fillText(
+        char,
+        bgCanvas.width / 2,
+        measurements.actualBoundingBoxAscent
+      );
+
+      canvImages.push(bgCanvas);
+    });
+
+    bindEvents();
+    loop();
   }
 
   init();

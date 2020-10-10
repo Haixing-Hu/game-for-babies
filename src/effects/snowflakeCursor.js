@@ -1,16 +1,16 @@
 export default function snowflakeCursor(options) {
-  
-  let hasWrapperEl = options && options.element;
-  let element = hasWrapperEl || document.body;
+  const hasWrapperEl = options && options.element;
+  const element = hasWrapperEl || document.body;
 
-  let possibleEmoji = ['❄️'];
+  const possibleEmoji = ['❄️'];
   let width = window.innerWidth;
   let height = window.innerHeight;
-  let cursor = { x: width / 2, y: width / 2 };
-  let particles = [];
-  let canvas, context;
+  const cursor = { x: width / 2, y: width / 2 };
+  const particles = [];
+  let canvas; let
+    context;
 
-  let canvImages = [];
+  const canvImages = [];
 
   function init() {
     canvas = document.createElement('canvas');
@@ -37,14 +37,13 @@ export default function snowflakeCursor(options) {
     context.textAlign = 'center';
 
     possibleEmoji.forEach((emoji) => {
-      let measurements = context.measureText(emoji);
-      let bgCanvas = document.createElement('canvas');
-      let bgContext = bgCanvas.getContext('2d');
+      const measurements = context.measureText(emoji);
+      const bgCanvas = document.createElement('canvas');
+      const bgContext = bgCanvas.getContext('2d');
 
       bgCanvas.width = measurements.width;
-      bgCanvas.height =
-        measurements.actualBoundingBoxAscent +
-        measurements.actualBoundingBoxDescent;
+      bgCanvas.height = measurements.actualBoundingBoxAscent
+        + measurements.actualBoundingBoxDescent;
 
       bgContext.textAlign = 'center';
       bgContext.font = '12px serif';
@@ -144,12 +143,12 @@ export default function snowflakeCursor(options) {
   function Particle(x, y, canvasItem) {
     const lifeSpan = Math.floor(Math.random() * 60 + 80);
     this.initialLifeSpan = lifeSpan; //
-    this.lifeSpan = lifeSpan; //ms
+    this.lifeSpan = lifeSpan; // ms
     this.velocity = {
       x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
       y: 1 + Math.random(),
     };
-    this.position = { x: x, y: y };
+    this.position = { x, y };
     this.canv = canvasItem;
 
     this.update = function (context) {

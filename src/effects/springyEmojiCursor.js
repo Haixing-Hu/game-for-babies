@@ -2,28 +2,28 @@
 // code, to modern js & canvas
 // - http://www.yaldex.com/FSMessages/ElasticBullets.htm
 export default function springyEmojiCursor(options) {
+  const emoji = options && options.emoji || '🤪';
+  const hasWrapperEl = options && options.element;
+  const element = hasWrapperEl || document.body;
 
-  let emoji = options && options.emoji || '🤪';
-  let hasWrapperEl = options && options.element;
-  let element = hasWrapperEl || document.body;
-  
-  let nDots = 7;
-  let DELTAT = 0.01;
-  let SEGLEN = 10;
-  let SPRINGK = 10;
-  let MASS = 1;
-  let GRAVITY = 50;
-  let RESISTANCE = 10;
-  let STOPVEL = 0.1;
-  let STOPACC = 0.1;
-  let DOTSIZE = 11;
-  let BOUNCE = 0.7;
+  const nDots = 7;
+  const DELTAT = 0.01;
+  const SEGLEN = 10;
+  const SPRINGK = 10;
+  const MASS = 1;
+  const GRAVITY = 50;
+  const RESISTANCE = 10;
+  const STOPVEL = 0.1;
+  const STOPACC = 0.1;
+  const DOTSIZE = 11;
+  const BOUNCE = 0.7;
 
   let width = window.innerWidth;
   let height = window.innerHeight;
-  let cursor = { x: width / 2, y: width / 2 };
-  let particles = [];
-  let canvas, context;
+  const cursor = { x: width / 2, y: width / 2 };
+  const particles = [];
+  let canvas; let
+    context;
 
   let emojiAsImage;
 
@@ -51,14 +51,13 @@ export default function springyEmojiCursor(options) {
     context.textBaseline = 'middle';
     context.textAlign = 'center';
 
-    let measurements = context.measureText(emoji);
-    let bgCanvas = document.createElement('canvas');
-    let bgContext = bgCanvas.getContext('2d');
+    const measurements = context.measureText(emoji);
+    const bgCanvas = document.createElement('canvas');
+    const bgContext = bgCanvas.getContext('2d');
 
     bgCanvas.width = measurements.width;
-    bgCanvas.height =
-      measurements.actualBoundingBoxAscent +
-      measurements.actualBoundingBoxDescent;
+    bgCanvas.height = measurements.actualBoundingBoxAscent
+      + measurements.actualBoundingBoxDescent;
 
     bgContext.textAlign = 'center';
     bgContext.font = '16px serif';
@@ -134,7 +133,7 @@ export default function springyEmojiCursor(options) {
 
     // Start from 2nd dot
     for (i = 1; i < nDots; i++) {
-      let spring = new vec(0, 0);
+      const spring = new vec(0, 0);
 
       if (i > 0) {
         springForce(i - 1, i, spring);
@@ -144,12 +143,12 @@ export default function springyEmojiCursor(options) {
         springForce(i + 1, i, spring);
       }
 
-      let resist = new vec(
+      const resist = new vec(
         -particles[i].velocity.x * RESISTANCE,
         -particles[i].velocity.y * RESISTANCE
       );
 
-      let accel = new vec(
+      const accel = new vec(
         (spring.X + resist.X) / MASS,
         (spring.Y + resist.Y) / MASS + GRAVITY
       );
@@ -158,10 +157,10 @@ export default function springyEmojiCursor(options) {
       particles[i].velocity.y += DELTAT * accel.Y;
 
       if (
-        Math.abs(particles[i].velocity.x) < STOPVEL &&
-        Math.abs(particles[i].velocity.y) < STOPVEL &&
-        Math.abs(accel.X) < STOPACC &&
-        Math.abs(accel.Y) < STOPACC
+        Math.abs(particles[i].velocity.x) < STOPVEL
+        && Math.abs(particles[i].velocity.y) < STOPVEL
+        && Math.abs(accel.X) < STOPACC
+        && Math.abs(accel.Y) < STOPACC
       ) {
         particles[i].velocity.x = 0;
         particles[i].velocity.y = 0;
@@ -170,7 +169,8 @@ export default function springyEmojiCursor(options) {
       particles[i].position.x += particles[i].velocity.x;
       particles[i].position.y += particles[i].velocity.y;
 
-      let height, width;
+      let height; let
+        width;
       height = canvas.clientHeight;
       width = canvas.clientWidth;
 
@@ -210,11 +210,11 @@ export default function springyEmojiCursor(options) {
   }
 
   function springForce(i, j, spring) {
-    let dx = particles[i].position.x - particles[j].position.x;
-    let dy = particles[i].position.y - particles[j].position.y;
-    let len = Math.sqrt(dx * dx + dy * dy);
+    const dx = particles[i].position.x - particles[j].position.x;
+    const dy = particles[i].position.y - particles[j].position.y;
+    const len = Math.sqrt(dx * dx + dy * dy);
     if (len > SEGLEN) {
-      let springF = SPRINGK * (len - SEGLEN);
+      const springF = SPRINGK * (len - SEGLEN);
       spring.X += (dx / len) * springF;
       spring.Y += (dy / len) * springF;
     }

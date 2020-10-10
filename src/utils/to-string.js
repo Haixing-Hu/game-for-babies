@@ -7,13 +7,13 @@
 
 /**
  * Converts a value or object to string.
- * 
- * For 'string', 'number', 'boolean' values, it will returns their string 
+ *
+ * For 'string', 'number', 'boolean' values, it will returns their string
  * representations; for 'object' values, it will returns their JSON coding.
- * 
- * @param {in} value 
+ *
+ * @param {in} value
  *     the value to be converted.
- * @return 
+ * @return
  *     the string representation of the value.
  * @author Haixing Hu
  */
